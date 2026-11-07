@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quản trị | Di cư an toàn</title>
+<html lang="vi"><head<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quản trị | Di cư an toàn</title>
 <style>
 :root{--navy:#10243b;--teal:#087e83;--ink:#1e293b;--muted:#64748b;--line:#dbe4ea;--bg:#f4f7f9;--white:#fff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.5 system-ui,Arial;color:var(--ink)}header{background:var(--navy);color:white;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}header a{color:white;text-decoration:none}.wrap{max-width:1180px;margin:26px auto;padding:0 18px}.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px}.login{max-width:430px;margin:8vh auto}.muted{color:var(--muted)}h1,h2,h3{color:var(--navy)}h1{margin:0;font-size:25px}h2{font-size:19px;margin:0 0 14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}label{font-weight:700;font-size:13px}input,select,textarea{font:inherit;border:1px solid #cbd5df;border-radius:9px;padding:10px 11px;background:white;width:100%}textarea{min-height:105px;resize:vertical}.btn{border:0;border-radius:9px;padding:10px 14px;background:var(--teal);color:white;font-weight:700;cursor:pointer}.btn.gray{background:#e8eef2;color:var(--navy)}.btn.red{background:#b83f43}.btn.small{padding:7px 10px;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:#f0f7f7;border-radius:12px;padding:14px}.stat strong{display:block;font-size:24px;color:var(--teal)}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted)}.tablewrap{overflow:auto}.hidden{display:none!important}.hint{background:#fff7e8;border-left:4px solid #e9a23b;padding:12px;border-radius:8px;margin:12px 0}.success{color:#087e5b}.error{color:#b4232d}.tag{font-size:11px;background:#e9f4f3;color:#087e83;padding:3px 7px;border-radius:20px}
@@ -34,18 +34,68 @@ const seed=[
 {id:'r6',title:'Tình huống: Bị dụ dỗ sang nước ngoài rồi cưỡng ép lao động',level:'3',type:'Tình huống',desc:'Thảo luận cách tìm kiếm trợ giúp khi bị đưa đến nơi làm việc trái với thỏa thuận.',body:'Một người được hứa hẹn công việc văn phòng lương cao, nhưng sau khi di chuyển lại bị đưa đến nơi khác, bị giữ giấy tờ và ép tham gia hoạt động lừa đảo trực tuyến. Đây là tình huống nguy hiểm. Ưu tiên tìm cách liên hệ cơ quan chức năng, cơ quan đại diện Việt Nam và người đáng tin cậy; không tự đặt mình vào nguy hiểm để thu thập chứng cứ.',url:'',active:true},
 {id:'r7',title:'Bài tương tác: Nhận diện dấu hiệu rủi ro',level:'2',type:'Tương tác',desc:'Thêm đường dẫn Genially của bạn tại trang quản trị để hiển thị bài tương tác.',body:'',url:'',active:true}
 ];
-function data(){try{let a=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(a))return a}catch(e){}localStorage.setItem(KEY,JSON.stringify(seed));return seed}
-function login(){if(document.getElementById('username').value===DEMO_USER&&document.getElementById('password').value===DEMO_PASS){sessionStorage.setItem('dca_admin_demo','1');showApp()}else document.getElementById('loginMsg').textContent='Tên đăng nhập hoặc mật khẩu chưa đúng.'}
-function showApp(){document.getElementById('loginBox').classList.add('hidden');document.getElementById('app').classList.remove('hidden');document.getElementById('logout').classList.remove('hidden');renderTable();stats()}
-function logout(){sessionStorage.removeItem('dca_admin_demo');location.reload()}
-function stats(){let a=data();document.getElementById('total').textContent=a.length;document.getElementById('visible').textContent=a.filter(x=>x.active!==false).length;document.getElementById('interactive').textContent=a.filter(x=>x.type==='Tương tác').length}
-function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function renderTable(){let q=(document.getElementById('filter')?.value||'').toLowerCase();let a=data().filter(x=>x.title.toLowerCase().includes(q));let r=document.getElementById('rows');r.innerHTML='';a.forEach(x=>{let tr=document.createElement('tr');tr.innerHTML=`<td><b>${esc(x.title)}</b><br><span class="muted">${esc(x.desc||'')}</span></td><td>Cấp ${x.level}</td><td><span class="tag">${esc(x.type)}</span></td><td>${x.active===false?'Đang ẩn':'Đang hiển thị'}</td><td><button class="btn small gray" onclick="editItem('${x.id}')">Sửa</button> <button class="btn small gray" onclick="toggleItem('${x.id}')">${x.active===false?'Hiện':'Ẩn'}</button> <button class="btn small red" onclick="deleteItem('${x.id}')">Xóa</button></td>`;r.appendChild(tr)});stats()}
-function newItem(){clearForm();document.getElementById('editorTitle').textContent='Thêm học liệu mới';document.getElementById('editor').scrollIntoView({behavior:'smooth'})}
-function editItem(id){let x=data().find(a=>a.id===id);if(!x)return;for(let [k,v] of Object.entries({itemId:x.id,title:x.title,itemLevel:x.level,itemType:x.type,desc:x.desc,body:x.body,url:x.url,active:String(x.active!==false)}))document.getElementById(k).value=v;document.getElementById('editorTitle').textContent='Chỉnh sửa học liệu';document.getElementById('saveMsg').textContent='';document.getElementById('editor').scrollIntoView({behavior:'smooth'})}
-function clearForm(){['itemId','title','desc','body','url'].forEach(id=>document.getElementById(id).value='');document.getElementById('itemLevel').value='1';document.getElementById('itemType').value='Bài học';document.getElementById('active').value='true';document.getElementById('saveMsg').textContent=''}
-function saveItem(){let title=document.getElementById('title').value.trim();if(!title){document.getElementById('saveMsg').textContent='Vui lòng nhập tiêu đề.';return}let a=data(),id=document.getElementById('itemId').value;let x={id:id||('r'+Date.now()),title,level:document.getElementById('itemLevel').value,type:document.getElementById('itemType').value,desc:document.getElementById('desc').value.trim(),body:document.getElementById('body').value.trim(),url:document.getElementById('url').value.trim(),active:document.getElementById('active').value==='true'};let i=a.findIndex(z=>z.id===id);if(i>=0)a[i]=x;else a.unshift(x);localStorage.setItem(KEY,JSON.stringify(a));document.getElementById('saveMsg').textContent='Đã lưu học liệu trên trình duyệt này.';clearForm();renderTable()}
-function deleteItem(id){if(!confirm('Bạn có chắc muốn xóa học liệu này?'))return;localStorage.setItem(KEY,JSON.stringify(data().filter(x=>x.id!==id)));renderTable()}
-function toggleItem(id){let a=data(),x=a.find(z=>z.id===id);if(x){x.active=x.active===false;localStorage.setItem(KEY,JSON.stringify(a));renderTable()}}
-if(sessionStorage.getItem('dca_admin_demo')==='1')showApp();
+const SUPABASE_URL = 'https://pdekkcdtzcqbxqqrojto.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_XJgrDp-RBoau0TzkLqHtbg_-mib4...'; // Giữ nguyên khóa sb_publishable của bạn
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function data() {
+    let { data, error } = await _supabase.from('resources').select('*').order('created_at', { ascending: false });
+    if (error) {
+        console.error('Lỗi tải dữ liệu:', error);
+        return [];
+    }
+    return data || [];
+}
+
+async function saveItem() {
+    let title = document.getElementById('title').value.trim();
+    if (!title) {
+        document.getElementById('saveMsg').textContent = 'Vui lòng nhập tiêu đề.';
+        return;
+    }
+    let id = document.getElementById('itemId').value || ('r' + Date.now());
+    let x = {
+        id: id,
+        title: title,
+        level: document.getElementById('itemLevel').value,
+        type: document.getElementById('itemType').value,
+        desc: document.getElementById('desc').value.trim(),
+        body: document.getElementById('body').value.trim(),
+        url: document.getElementById('url').value.trim(),
+        active: document.getElementById('active').value === 'true'
+    };
+
+    let { error } = await _supabase.from('resources').upsert([x]);
+    if (error) {
+        document.getElementById('saveMsg').textContent = 'Lỗi lưu: ' + error.message;
+    } else {
+        document.getElementById('saveMsg').textContent = 'Đã lưu và đồng bộ thành công lên mây!';
+        clearForm();
+        renderTable();
+    }
+}
+
+async function deleteItem(id) {
+    if (!confirm('Bạn có chắc muốn xóa học liệu này?')) return;
+    let { error } = await _supabase.from('resources').delete().eq('id', id);
+    if (error) {
+        alert('Lỗi khi xóa: ' + error.message);
+    } else {
+        renderTable();
+    }
+}
+
+async function toggleItem(id) {
+    let currentData = await data();
+    let x = currentData.find(z => z.id === id);
+    if (x) {
+        let newActive = !(x.active !== false);
+        let { error } = await _supabase.from('resources').update({ active: newActive }).eq('id', id);
+        if (error) {
+            alert('Lỗi cập nhật trạng thái');
+        } else {
+            renderTable();
+        }
+    }
+}if(sessionStorage.getItem('dca_admin_demo')==='1')showApp();
 </script></body></html>
