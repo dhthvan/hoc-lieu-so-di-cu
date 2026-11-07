@@ -1,42 +1,106 @@
 <!doctype html>
-<html lang="vi"><head<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quản trị | Di cư an toàn</title>
-<style>
-:root{--navy:#10243b;--teal:#087e83;--ink:#1e293b;--muted:#64748b;--line:#dbe4ea;--bg:#f4f7f9;--white:#fff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.5 system-ui,Arial;color:var(--ink)}header{background:var(--navy);color:white;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}header a{color:white;text-decoration:none}.wrap{max-width:1180px;margin:26px auto;padding:0 18px}.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px}.login{max-width:430px;margin:8vh auto}.muted{color:var(--muted)}h1,h2,h3{color:var(--navy)}h1{margin:0;font-size:25px}h2{font-size:19px;margin:0 0 14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}label{font-weight:700;font-size:13px}input,select,textarea{font:inherit;border:1px solid #cbd5df;border-radius:9px;padding:10px 11px;background:white;width:100%}textarea{min-height:105px;resize:vertical}.btn{border:0;border-radius:9px;padding:10px 14px;background:var(--teal);color:white;font-weight:700;cursor:pointer}.btn.gray{background:#e8eef2;color:var(--navy)}.btn.red{background:#b83f43}.btn.small{padding:7px 10px;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:#f0f7f7;border-radius:12px;padding:14px}.stat strong{display:block;font-size:24px;color:var(--teal)}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted)}.tablewrap{overflow:auto}.hidden{display:none!important}.hint{background:#fff7e8;border-left:4px solid #e9a23b;padding:12px;border-radius:8px;margin:12px 0}.success{color:#087e5b}.error{color:#b4232d}.tag{font-size:11px;background:#e9f4f3;color:#087e83;padding:3px 7px;border-radius:20px}
-@media(max-width:720px){.grid,.stats{grid-template-columns:1fr}.panel{padding:16px}}
-</style></head><body>
-<header><div><b>DI CƯ AN TOÀN</b><div style="font-size:12px;color:#c7d7e4">Khu vực quản trị học liệu</div></div><div><a href="index.html">← Xem trang học viên</a> <button id="logout" class="btn gray hidden" onclick="logout()">Đăng xuất</button></div></header>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quản trị | Di cư an toàn</title>
+    <!-- Nhúng thư viện Supabase chính thức -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+    :root{--navy:#10243b;--teal:#087e83;--ink:#1e293b;--muted:#64748b;--line:#dbe4ea;--bg:#f4f7f9;--white:#fff}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.5 system-ui,Arial;color:var(--ink)}header{background:var(--navy);color:white;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}header a{color:white;text-decoration:none}.wrap{max-width:1180px;margin:26px auto;padding:0 18px}.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px}.login{max-width:430px;margin:8vh auto}.muted{color:var(--muted)}h1,h2,h3{color:var(--navy)}h1{margin:0;font-size:25px}h2{font-size:19px;margin:0 0 14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}label{font-weight:700;font-size:13px}input,select,textarea{font:inherit;border:1px solid #cbd5df;border-radius:9px;padding:10px 11px;background:white;width:100%}textarea{min-height:105px;resize:vertical}.btn{border:0;border-radius:9px;padding:10px 14px;background:var(--teal);color:white;font-weight:700;cursor:pointer}.btn.gray{background:#e8eef2;color:var(--navy)}.btn.red{background:#b83f43}.btn.small{padding:7px 10px;font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:#f0f7f7;border-radius:12px;padding:14px}.stat strong{display:block;font-size:24px;color:var(--teal)}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted)}.tablewrap{overflow:auto}.hidden{display:none!important}.hint{background:#fff7e8;border-left:4px solid #e9a23b;padding:12px;border-radius:8px;margin:12px 0}.success{color:#087e5b}.error{color:#b4232d}.tag{font-size:11px;background:#e9f4f3;color:#087e83;padding:3px 7px;border-radius:20px}
+    @media(max-width:720px){.grid,.stats{grid-template-columns:1fr}.panel{padding:16px}}
+    </style>
+</head>
+<body>
+<header>
+    <div><b>DI CƯ AN TOÀN</b><div style="font-size:12px;color:#c7d7e4">Khu vực quản trị học liệu</div></div>
+    <div><a href="index.html">← Xem trang học viên</a> <button id="logout" class="btn gray hidden" onclick="logout()">Đăng xuất</button></div>
+</header>
 <div class="wrap">
-<section id="loginBox" class="panel login"><h1>Đăng nhập quản trị</h1><p class="muted">Đăng nhập để quản lý bài học, tình huống và bài tương tác.</p><div class="field"><label>Tên đăng nhập</label><input id="username" value="admin"></div><div class="field" style="margin-top:12px"><label>Mật khẩu</label><input id="password" type="password" placeholder="Nhập mật khẩu"></div><div class="actions"><button class="btn" onclick="login()">Đăng nhập</button></div><p id="loginMsg" class="error"></p><div class="hint"><b>Tài khoản bản chạy thử:</b> admin / Admin@123<br>Đổi thông tin mẫu trong mã nguồn trước khi đưa lên mạng. Đây chưa phải cơ chế bảo mật thực tế.</div></section>
-<section id="app" class="hidden">
-<div class="topline" style="margin-bottom:16px"><div><h1>Bảng điều khiển</h1><div class="muted">Quản lý học liệu mà không cần chỉnh sửa mã HTML.</div></div><button class="btn" onclick="newItem()">＋ Thêm học liệu</button></div>
-<div class="stats"><div class="stat"><span class="muted">Tổng học liệu</span><strong id="total">0</strong></div><div class="stat"><span class="muted">Đang hiển thị</span><strong id="visible">0</strong></div><div class="stat"><span class="muted">Bài tương tác</span><strong id="interactive">0</strong></div></div>
-<div class="panel" style="margin-top:18px"><div class="topline"><h2>Danh sách học liệu</h2><input id="filter" placeholder="Tìm theo tên học liệu..." style="max-width:300px" oninput="renderTable()"></div><div class="tablewrap"><table><thead><tr><th>Tên học liệu</th><th>Cấp độ</th><th>Loại</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody id="rows"></tbody></table></div></div>
-<div class="panel" id="editor"><h2 id="editorTitle">Thêm học liệu mới</h2><input type="hidden" id="itemId"><div class="grid">
-<div class="field full"><label>Tiêu đề học liệu *</label><input id="title" placeholder="Nhập tên bài học hoặc bài tương tác"></div>
-<div class="field"><label>Cấp độ *</label><select id="itemLevel"><option value="1">Cấp độ 1 – Nhận biết</option><option value="2">Cấp độ 2 – Phân tích</option><option value="3">Cấp độ 3 – Ứng phó</option></select></div>
-<div class="field"><label>Loại học liệu</label><select id="itemType"><option>Bài học</option><option>Tình huống</option><option>Tương tác</option><option>Quiz</option></select></div>
-<div class="field full"><label>Mô tả ngắn</label><input id="desc" placeholder="Mô tả sẽ hiển thị trên thẻ học liệu"></div>
-<div class="field full"><label>Nội dung bài học (văn bản)</label><textarea id="body" placeholder="Nhập nội dung văn bản, hướng dẫn hoặc tình huống..."></textarea></div>
-<div class="field full"><label>Link Genially / video / nội dung nhúng (không bắt buộc)</label><textarea id="url" placeholder="Dán link chia sẻ/iframe embed tại đây. Với Genially, ưu tiên dùng mã iframe hoặc link embed chính thức."></textarea></div>
-<div class="field"><label>Trạng thái</label><select id="active"><option value="true">Hiển thị cho học viên</option><option value="false">Ẩn khỏi học viên</option></select></div>
-</div><div class="actions"><button class="btn" onclick="saveItem()">Lưu học liệu</button><button class="btn gray" onclick="clearForm()">Làm mới biểu mẫu</button></div><p id="saveMsg" class="success"></p></div>
-<div class="hint"><b>Quan trọng về lưu trữ:</b> Phiên bản này lưu dữ liệu trong localStorage của trình duyệt đang sử dụng. Dữ liệu không tự đồng bộ sang máy khác và đăng nhập mẫu chưa đủ an toàn cho triển khai thật. Để vận hành nhiều tài khoản học viên, cần kết nối Supabase hoặc máy chủ có cơ sở dữ liệu và phân quyền.</div>
-</section></div>
+    <!-- Khung đăng nhập -->
+    <section id="loginBox" class="panel login">
+        <h1>Đăng nhập quản trị</h1>
+        <p class="muted">Đăng nhập để quản lý bài học, tình huống và bài tương tác trên mây.</p>
+        <div class="field"><label>Tên đăng nhập</label><input id="username" value="admin"></div>
+        <div class="field" style="margin-top:12px"><label>Mật khẩu</label><input id="password" type="password" placeholder="Nhập mật khẩu"></div>
+        <div class="actions"><button class="btn" onclick="login()">Đăng nhập</button></div>
+        <p id="loginMsg" class="error"></p>
+        <div class="hint"><b>Tài khoản mẫu:</b> admin / Admin@123</div>
+    </section>
+
+    <!-- Khung quản trị chính -->
+    <section id="app" class="hidden">
+        <div class="topline" style="margin-bottom:16px">
+            <div><h1>Bảng điều khiển</h1><div class="muted">Quản lý học liệu đồng bộ trực tiếp qua Supabase Cloud.</div></div>
+            <button class="btn" onclick="newItem()">＋ Thêm học liệu</button>
+        </div>
+        <div class="stats">
+            <div class="stat"><span class="muted">Tổng học liệu</span><strong id="total">0</strong></div>
+            <div class="stat"><span class="muted">Đang hiển thị</span><strong id="visible">0</strong></div>
+            <div class="stat"><span class="muted">Bài tương tác</span><strong id="interactive">0</strong></div>
+        </div>
+        <div class="panel" style="margin-top:18px">
+            <div class="topline">
+                <h2>Danh sách học liệu</h2>
+                <input id="filter" placeholder="Tìm theo tên học liệu..." style="max-width:300px" oninput="renderTable()">
+            </div>
+            <div class="tablewrap">
+                <table>
+                    <thead><tr><th>Tên học liệu</th><th>Cấp độ</th><th>Loại</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+                    <tbody id="rows"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel" id="editor">
+            <h2 id="editorTitle">Thêm học liệu mới</h2>
+            <input type="hidden" id="itemId">
+            <div class="grid">
+                <div class="field full"><label>Tiêu đề học liệu *</label><input id="title" placeholder="Nhập tên bài học hoặc bài tương tác"></div>
+                <div class="field"><label>Cấp độ *</label><select id="itemLevel"><option value="1">Cấp độ 1 – Nhận biết</option><option value="2">Cấp độ 2 – Phân tích</option><option value="3">Cấp độ 3 – Ứng phó</option></select></div>
+                <div class="field"><label>Loại học liệu</label><select id="itemType"><option>Bài học</option><option>Tình huống</option><option>Tương tác</option><option>Quiz</option></select></div>
+                <div class="field full"><label>Mô tả ngắn</label><input id="desc" placeholder="Mô tả sẽ hiển thị trên thẻ học liệu"></div>
+                <div class="field full"><label>Nội dung bài học (văn bản)</label><textarea id="body" placeholder="Nhập nội dung văn bản, hướng dẫn hoặc tình huống..."></textarea></div>
+                <div class="field full"><label>Link Genially / video / nội dung nhúng (không bắt buộc)</label><textarea id="url" placeholder="Dán link chia sẻ/iframe embed tại đây..."></textarea></div>
+                <div class="field"><label>Trạng thái</label><select id="active"><option value="true">Hiển thị cho học viên</option><option value="false">Ẩn khỏi học viên</option></select></div>
+            </div>
+            <div class="actions">
+                <button class="btn" onclick="saveItem()">Lưu học liệu</button>
+                <button class="btn gray" onclick="clearForm()">Làm mới biểu mẫu</button>
+            </div>
+            <p id="saveMsg" class="success"></p>
+        </div>
+    </section>
+</div>
+
 <script>
-const KEY='dca_resources_v2';const DEMO_USER='admin',DEMO_PASS='Admin@123';
-const seed=[
-{id:'r1',title:'Di cư lao động an toàn là gì?',level:'1',type:'Bài học',desc:'Khái niệm và các điều kiện cơ bản để đi làm việc ở nước ngoài an toàn.',body:'Di cư lao động an toàn cần được tìm hiểu và thực hiện qua các kênh hợp pháp. Người lao động cần kiểm tra doanh nghiệp dịch vụ, công việc, nơi làm việc, hợp đồng, chi phí và giấy tờ xuất nhập cảnh. Việc “đi được” không đồng nghĩa với việc chuyến đi an toàn.',url:'',active:true},
-{id:'r2',title:'Quyền của người lao động đi làm việc ở nước ngoài',level:'1',type:'Bài học',desc:'Tìm hiểu quyền được cung cấp thông tin, hưởng quyền lợi theo hợp đồng và yêu cầu bảo vệ.',body:'Người lao động cần được cung cấp thông tin, tư vấn và hỗ trợ; được hưởng tiền lương, quyền lợi, chăm sóc sức khỏe và bảo hiểm theo hợp đồng, quy định pháp luật; được bảo vệ quyền và lợi ích hợp pháp; có quyền khiếu nại, tố cáo hoặc khởi kiện theo quy định.',url:'',active:true},
-{id:'r3',title:'Sáu bước chuẩn bị trước khi đi làm việc ở nước ngoài',level:'1',type:'Bài học',desc:'Từ tìm hiểu thị trường đến kiểm tra hợp đồng và hoàn thiện thủ tục.',body:'Các bước tham khảo: tìm hiểu thị trường, công việc và chương trình; kiểm tra doanh nghiệp có giấy phép; đăng ký và kiểm tra điều kiện; đọc kỹ và ký hợp đồng; hoàn thành khám sức khỏe, đào tạo và giấy tờ; xuất cảnh đúng quy định. Hãy kiểm tra thông tin qua cơ quan có thẩm quyền trước khi quyết định.',url:'',active:true},
-{id:'r4',title:'Dấu hiệu tuyển dụng không an toàn',level:'1',type:'Bài học',desc:'Nhận diện lời mời “việc nhẹ lương cao”, phí mập mờ và yêu cầu giữ giấy tờ.',body:'Cảnh giác khi quảng cáo lương cao bất thường, không nêu rõ công việc hoặc địa điểm; không có hợp đồng rõ ràng; thu phí không minh bạch; yêu cầu giao giấy tờ gốc; hoặc thay đổi công việc, tiền lương so với thỏa thuận.',url:'',active:true},
-{id:'r5',title:'Tình huống: Lời mời sang nước ngoài làm việc',level:'2',type:'Tình huống',desc:'Phân tích trường hợp người trẻ được mời đi làm với thu nhập cao nhưng phải đặt cọc và nộp giấy tờ.',body:'Một sinh viên được mời làm cộng tác viên kiểm duyệt đơn hàng ở nước ngoài với mức lương cao. Người tuyển dụng yêu cầu chuyển tiền đặt cọc và gửi giấy tờ cá nhân nhưng không cung cấp hợp đồng hay thông tin pháp lý rõ ràng. Cách xử lý phù hợp: không chuyển tiền, không giao giấy tờ; dừng giao dịch; xác minh thông tin qua cơ quan có thẩm quyền; trao đổi với gia đình và trình báo khi có dấu hiệu lừa đảo.',url:'',active:true},
-{id:'r6',title:'Tình huống: Bị dụ dỗ sang nước ngoài rồi cưỡng ép lao động',level:'3',type:'Tình huống',desc:'Thảo luận cách tìm kiếm trợ giúp khi bị đưa đến nơi làm việc trái với thỏa thuận.',body:'Một người được hứa hẹn công việc văn phòng lương cao, nhưng sau khi di chuyển lại bị đưa đến nơi khác, bị giữ giấy tờ và ép tham gia hoạt động lừa đảo trực tuyến. Đây là tình huống nguy hiểm. Ưu tiên tìm cách liên hệ cơ quan chức năng, cơ quan đại diện Việt Nam và người đáng tin cậy; không tự đặt mình vào nguy hiểm để thu thập chứng cứ.',url:'',active:true},
-{id:'r7',title:'Bài tương tác: Nhận diện dấu hiệu rủi ro',level:'2',type:'Tương tác',desc:'Thêm đường dẫn Genially của bạn tại trang quản trị để hiển thị bài tương tác.',body:'',url:'',active:true}
-];
+const DEMO_USER = 'admin', DEMO_PASS = 'Admin@123';
 const SUPABASE_URL = 'https://pdekkcdtzcqbxqqrojto.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_XJgrDp-RBoau0TzkLqHtbg_-mib4...'; // Giữ nguyên khóa sb_publishable của bạn
+const SUPABASE_ANON_KEY = 'sb_publishable_XJgrDp-RBoau0TzkLqHtbg_-mib4...';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+function login() {
+    let u = document.getElementById('username').value.trim();
+    let p = document.getElementById('password').value.trim();
+    if(u === DEMO_USER && p === DEMO_PASS) {
+        sessionStorage.setItem('dca_admin_demo', '1');
+        showApp();
+    } else {
+        document.getElementById('loginMsg').textContent = 'Sai tên đăng nhập hoặc mật khẩu!';
+    }
+}
+
+function showApp() {
+    document.getElementById('loginBox').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden');
+    document.getElementById('logout').classList.remove('hidden');
+    renderTable();
+}
+
+function logout() {
+    sessionStorage.removeItem('dca_admin_demo');
+    location.reload();
+}
 
 async function data() {
     let { data, error } = await _supabase.from('resources').select('*').order('created_at', { ascending: false });
@@ -45,6 +109,24 @@ async function data() {
         return [];
     }
     return data || [];
+}
+
+async function renderTable() {
+    let q = document.getElementById('filter')?.value.toLowerCase() || '';
+    let allData = await data();
+    let arr = allData.filter(x => x.title.toLowerCase().includes(q));
+    let r = document.getElementById('rows');
+    r.innerHTML = '';
+    
+    document.getElementById('total').textContent = allData.length;
+    document.getElementById('visible').textContent = allData.filter(x => x.active !== false).length;
+    document.getElementById('interactive').textContent = allData.filter(x => x.type === 'Tương tác').length;
+
+    arr.forEach(x => {
+        let tr = document.createElement('tr');
+        tr.innerHTML = `<td><b>${esc(x.title)}</b><br><span class="muted">${esc(x.desc||'')}</span></td><td>Cấp độ ${x.level}</td><td><span class="tag">${esc(x.type)}</span></td><td>${x.active===false?'Đang ẩn':'Đang hiển thị'}</td><td><button class="btn small gray" onclick="editItem('${x.id}')">Sửa</button> <button class="btn small" onclick="toggleItem('${x.id}')">${x.active===false?'Hiện':'Ẩn'}</button> <button class="btn small red" onclick="deleteItem('${x.id}')">Xóa</button></td>`;
+        r.appendChild(tr);
+    });
 }
 
 async function saveItem() {
@@ -97,5 +179,39 @@ async function toggleItem(id) {
             renderTable();
         }
     }
-}if(sessionStorage.getItem('dca_admin_demo')==='1')showApp();
-</script></body></html>
+}
+
+function editItem(id) {
+    data().then(currentData => {
+        let x = currentData.find(z => z.id === id);
+        if(!x) return;
+        document.getElementById('itemId').value = x.id;
+        document.getElementById('title').value = x.title || '';
+        document.getElementById('itemLevel').value = x.level || '1';
+        document.getElementById('itemType').value = x.type || 'Bài học';
+        document.getElementById('desc').value = x.desc || '';
+        document.getElementById('body').value = x.body || '';
+        document.getElementById('url').value = x.url || '';
+        document.getElementById('active').value = (x.active !== false) ? 'true' : 'false';
+        document.getElementById('editorTitle').textContent = 'Chỉnh sửa học liệu';
+        document.getElementById('editor').scrollIntoView({behavior:'smooth'});
+    });
+}
+
+function clearForm() {
+    ['itemId','title','desc','body','url'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('itemLevel').value = '1';
+    document.getElementById('itemType').value = 'Bài học';
+    document.getElementById('active').value = 'true';
+    document.getElementById('editorTitle').textContent = 'Thêm học liệu mới';
+    document.getElementById('saveMsg').textContent = '';
+}
+
+function esc(s) {
+    return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+if(sessionStorage.getItem('dca_admin_demo')==='1') showApp();
+</script>
+</body>
+</html>
