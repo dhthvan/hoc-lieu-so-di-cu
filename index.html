@@ -1,60 +1,90 @@
 <!doctype html>
 <html lang="vi">
-<head<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Di cư an toàn | Học liệu số</title>
-<style>
-:root{--navy:#10243b;--teal:#087e83;--mint:#e8f5f2;--ink:#1e293b;--muted:#64748b;--line:#dbe4ea;--bg:#f5f8fa;--white:#fff;--gold:#e9a23b}
-*{box-sizing:border-box}body{margin:0;font:15px/1.55 system-ui,-apple-system,Segoe UI,Arial;color:var(--ink);background:var(--bg)}
-header{background:var(--navy);color:white;padding:17px max(22px,calc((100% - 1120px)/2));display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.brand{font-weight:800;letter-spacing:.2px}.brand small{display:block;font-weight:400;color:#c6d7e4;font-size:12px}
-nav{display:flex;gap:12px;align-items:center}nav a{color:white;text-decoration:none;font-weight:600}
-main{max-width:1120px;margin:auto;padding:28px 20px 60px}.hero{background:linear-gradient(120deg,#12304b,#087e83);color:white;border-radius:22px;padding:36px;display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:center}
-.hero h1{font-size:clamp(28px,4vw,43px);line-height:1.13;margin:0 0 12px}.hero p{color:#e2f2f2;max-width:650px}.hero .tag{display:inline-block;background:#ffffff20;border:1px solid #ffffff50;padding:5px 10px;border-radius:20px;font-size:12px}
-.hero-art{background:#ffffff12;border:1px solid #ffffff30;border-radius:18px;padding:20px}.hero-art strong{font-size:42px;display:block}.hero-art span{color:#d7eeee}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:30px 0 14px}.section-head h2{margin:0;color:var(--navy)}.muted{color:var(--muted)}
-.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.level{background:white;border:1px solid var(--line);border-radius:16px;padding:18px}.level b{display:block;font-size:17px;margin:7px 0}.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:7px}.green{background:#1b9b72}.amber{background:#d99528}.red{background:#d65353}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.toolbar input,.toolbar select{padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:white;font:inherit}.toolbar input{flex:1;min-width:220px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;min-height:205px}.pill{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--teal)}.card h3{margin:8px 0}.card p{color:var(--muted);margin:0 0 16px;flex:1}.btn{border:0;background:var(--teal);color:white;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}.btn.secondary{background:#e8eff3;color:var(--navy)}.empty{background:white;border:1px dashed #b8c7d1;border-radius:14px;padding:25px;text-align:center;color:var(--muted);grid-column:1/-1}
-footer{background:#eaf0f3;padding:24px;text-align:center;color:var(--muted);font-size:13px}
-.modal{display:none;position:fixed;inset:0;background:#071827c9;z-index:5;padding:20px;overflow:auto}.modal.show{display:flex;align-items:center;justify-content:center}.modalbox{background:white;border-radius:18px;max-width:900px;width:100%;padding:22px;max-height:92vh;overflow:auto}.modalhead{display:flex;justify-content:space-between;gap:12px;align-items:center}.close{border:0;background:#edf2f5;border-radius:9px;padding:8px 12px;cursor:pointer}.embed{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#eef3f5}.notice{padding:12px 14px;background:#fff7e8;border-left:4px solid var(--gold);border-radius:8px;color:#6d4a12;margin-top:14px}
-@media(max-width:760px){.hero{grid-template-columns:1fr;padding:25px}.levels,.cards{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}}
-</style></head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Di cư an toàn | Học liệu số</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+    :root{--navy:#10243b;--teal:#087e83;--mint:#e8f5f2;--ink:#1e293b;--muted:#64748b;--line:#dbe4ea;--bg:#f5f8fa;--white:#fff;--gold:#e9a23b}
+    *{box-sizing:border-box}body{margin:0;font:15px/1.55 system-ui,-apple-system,Segoe UI,Arial;color:var(--ink);background:var(--bg)}
+    header{background:var(--navy);color:white;padding:17px max(22px,calc((100% - 1120px)/2));display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+    .brand{font-weight:800;letter-spacing:.2px}.brand small{display:block;font-weight:400;color:#c6d7e4;font-size:12px}
+    nav{display:flex;gap:12px;align-items:center}nav a{color:white;text-decoration:none;font-weight:600}
+    main{max-width:1120px;margin:auto;padding:28px 20px 60px}.hero{background:linear-gradient(120deg,#12304b,#087e83);color:white;border-radius:22px;padding:36px;display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:center}
+    .hero h1{font-size:clamp(28px,4vw,43px);line-height:1.13;margin:0 0 12px}.hero p{color:#e2f2f2;max-width:650px}.hero .tag{display:inline-block;background:#ffffff20;border:1px solid #ffffff50;padding:5px 10px;border-radius:20px;font-size:12px}
+    .hero-art{background:#ffffff12;border:1px solid #ffffff30;border-radius:18px;padding:20px}.hero-art strong{font-size:42px;display:block}.hero-art span{color:#d7eeee}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:30px 0 14px}.section-head h2{margin:0;color:var(--navy)}.muted{color:var(--muted)}
+    .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.level{background:white;border:1px solid var(--line);border-radius:16px;padding:18px}.level b{display:block;font-size:17px;margin:7px 0}.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:7px}.green{background:#1b9b72}.amber{background:#d99528}.red{background:#d65353}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.toolbar input,.toolbar select{padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:white;font:inherit}.toolbar input{flex:1;min-width:220px}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;min-height:205px}.pill{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--teal)}.card h3{margin:8px 0}.card p{color:var(--muted);margin:0 0 16px;flex:1}.btn{border:0;background:var(--teal);color:white;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}.btn.secondary{background:#e8eff3;color:var(--navy)}.empty{background:white;border:1px dashed #b8c7d1;border-radius:14px;padding:25px;text-align:center;color:var(--muted);grid-column:1/-1}
+    footer{background:#eaf0f3;padding:24px;text-align:center;color:var(--muted);font-size:13px}
+    .modal{display:none;position:fixed;inset:0;background:#071827c9;z-index:5;padding:20px;overflow:auto}.modal.show{display:flex;align-items:center;justify-content:center}.modalbox{background:white;border-radius:18px;max-width:900px;width:100%;padding:22px;max-height:92vh;overflow:auto}.modalhead{display:flex;justify-content:space-between;gap:12px;align-items:center}.close{border:0;background:#edf2f5;border-radius:9px;padding:8px 12px;cursor:pointer}.embed{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#eef3f5}.notice{padding:12px 14px;background:#fff7e8;border-left:4px solid var(--gold);border-radius:8px;color:#6d4a12;margin-top:14px}
+    @media(max-width:760px){.hero{grid-template-columns:1fr;padding:25px}.levels,.cards{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}}
+    </style>
+</head>
 <body>
-<header><div class="brand">DI CƯ AN TOÀN<small>Nền tảng học liệu số · Phòng ngừa mua bán người</small></div><nav><a href="#levels">Lộ trình</a><a href="#library">Thư viện học liệu</a><a href="admin.html">Quản trị</a></nav></header>
+<header>
+    <div class="brand">DI CƯ AN TOÀN<small>Nền tảng học liệu số · Phòng ngừa mua bán người</small></div>
+    <nav><a href="#levels">Lộ trình</a><a href="#library">Thư viện học liệu</a><a href="admin.html">Quản trị</a></nav>
+</header>
 <main>
-<section class="hero"><div><span class="tag">HỌC TẬP · NHẬN DIỆN · ỨNG PHÓ</span><h1>Trang bị kiến thức để di cư an toàn</h1><p>Tìm hiểu cách nhận diện lời mời việc làm đáng ngờ, kiểm tra thông tin tuyển dụng, bảo vệ giấy tờ và tìm kiếm hỗ trợ khi có nguy cơ bị bóc lột hoặc mua bán người.</p><a class="btn" href="#library">Khám phá học liệu</a></div><div class="hero-art"><strong>03</strong><span>cấp độ học tập</span><hr style="border-color:#ffffff35"><strong>01</strong><span>mục tiêu: chủ động bảo vệ bản thân</span></div></section>
-<div class="section-head" id="levels"><div><h2>Lộ trình học tập</h2><div class="muted">Học từ nhận biết đến phân tích và ứng phó.</div></div></div>
-<section class="levels">
-<div class="level"><span class="dot green"></span><span class="muted">CẤP ĐỘ 1</span><b>Nhận biết</b><div class="muted">Hiểu di cư an toàn, quyền của người lao động và các dấu hiệu tuyển dụng bất thường.</div></div>
-<div class="level"><span class="dot amber"></span><span class="muted">CẤP ĐỘ 2</span><b>Phân tích</b><div class="muted">Phân tích tình huống, nhận diện thủ đoạn dụ dỗ và lựa chọn cách xử lý phù hợp.</div></div>
-<div class="level"><span class="dot red"></span><span class="muted">CẤP ĐỘ 3</span><b>Ứng phó</b><div class="muted">Thực hành các bước tìm kiếm trợ giúp, bảo vệ giấy tờ và báo tin khi gặp nguy cơ.</div></div>
-</section>
-<div class="section-head" id="library"><div><h2>Thư viện học liệu</h2><div class="muted">Danh sách được tải từ dữ liệu học liệu hiện có trên thiết bị này.</div></div></div>
-<div class="toolbar"><input id="search" placeholder="Tìm bài học, tình huống..."><select id="level"><option value="">Tất cả cấp độ</option><option value="1">Cấp độ 1</option><option value="2">Cấp độ 2</option><option value="3">Cấp độ 3</option></select><select id="type"><option value="">Tất cả loại học liệu</option><option value="Bài học">Bài học</option><option value="Tình huống">Tình huống</option><option value="Tương tác">Bài tương tác</option><option value="Quiz">Quiz</option></select></div>
-<section class="cards" id="cards"></section>
-<div class="notice"><b>Lưu ý:</b> Nội dung trên website phục vụ mục đích giáo dục, không thay thế tư vấn pháp lý hoặc hỗ trợ khẩn cấp. Khi gặp nguy hiểm, hãy liên hệ cơ quan chức năng hoặc cơ quan đại diện Việt Nam phù hợp.</div>
-</main><footer>DI CƯ AN TOÀN · Học liệu số về di cư an toàn và phòng ngừa mua bán người</footer>
-<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h2 id="modalTitle">Học liệu</h2><button class="close" onclick="closeModal()">Đóng ✕</button></div><div id="modalBody"></div></div></div>
+    <section class="hero">
+        <div>
+            <span class="tag">HỌC TẬP · NHẬN DIỆN · ỨNG PHÓ</span>
+            <h1>Trang bị kiến thức để di cư an toàn</h1>
+            <p>Tìm hiểu cách nhận diện lời mời việc làm đáng ngờ, kiểm tra thông tin tuyển dụng, bảo vệ giấy tờ và tìm kiếm hỗ trợ khi có nguy cơ bị bóc lột hoặc mua bán người.</p>
+            <a class="btn" href="#library">Khám phá học liệu</a>
+        </div>
+        <div class="hero-art"><strong>03</strong><span>cấp độ học tập</span><hr style="border-color:#ffffff35"><strong>01</strong><span>mục tiêu: chủ động bảo vệ bản thân</span></div>
+    </section>
+    
+    <div class="section-head" id="levels"><div><h2>Lộ trình học tập</h2><div class="muted">Học từ nhận biết đến phân tích và ứng phó.</div></div></div>
+    <section class="levels">
+        <div class="level"><span class="dot green"></span><span class="muted">CẤP ĐỘ 1</span><b>Nhận biết</b><div class="muted">Hiểu di cư an toàn, quyền của người lao động và các dấu hiệu tuyển dụng bất thường.</div></div>
+        <div class="level"><span class="dot amber"></span><span class="muted">CẤP ĐỘ 2</span><b>Phân tích</b><div class="muted">Phân tích tình huống, nhận diện thủ đoạn dụ dỗ và lựa chọn cách xử lý phù hợp.</div></div>
+        <div class="level"><span class="dot red"></span><span class="muted">CẤP ĐỘ 3</span><b>Ứng phó</b><div class="muted">Thực hành các bước tìm kiếm trợ giúp, bảo vệ giấy tờ và báo tin khi gặp nguy cơ.</div></div>
+    </section>
+
+    <div class="section-head" id="library"><div><h2>Thư viện học liệu</h2><div class="muted">Danh sách được tải trực tiếp từ hệ thống dữ liệu đám mây.</div></div></div>
+    <div class="toolbar">
+        <input id="search" placeholder="Tìm bài học, tình huống...">
+        <select id="level">
+            <option value="">Tất cả cấp độ</option>
+            <option value="1">Cấp độ 1</option>
+            <option value="2">Cấp độ 2</option>
+            <option value="3">Cấp độ 3</option>
+        </select>
+        <select id="type">
+            <option value="">Tất cả loại học liệu</option>
+            <option value="Bài học">Bài học</option>
+            <option value="Tình huống">Tình huống</option>
+            <option value="Tương tác">Bài tương tác</option>
+            <option value="Quiz">Quiz</option>
+        </select>
+    </div>
+    <section class="cards" id="cards"></section>
+    <div class="notice"><b>Lưu ý:</b> Nội dung trên website phục vụ mục đích giáo dục, không thay thế tư vấn pháp lý hoặc hỗ trợ khẩn cấp. Khi gặp nguy hiểm, hãy liên hệ cơ quan chức năng hoặc cơ quan đại diện Việt Nam phù hợp.</div>
+</main>
+
+<footer>DI CƯ AN TOÀN · Học liệu số về di cư an toàn và phòng ngừa mua bán người</footer>
+
+<div class="modal" id="modal">
+    <div class="modalbox">
+        <div class="modalhead"><h2 id="modalTitle">Học liệu</h2><button class="close" onclick="closeModal()">Đóng ✕</button></div>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
 <script>
-const KEY='dca_resources_v2';
-const seed=[
-{id:'r1',title:'Di cư lao động an toàn là gì?',level:'1',type:'Bài học',desc:'Khái niệm và các điều kiện cơ bản để đi làm việc ở nước ngoài an toàn.',body:'Di cư lao động an toàn cần được tìm hiểu và thực hiện qua các kênh hợp pháp. Người lao động cần kiểm tra doanh nghiệp dịch vụ, công việc, nơi làm việc, hợp đồng, chi phí và giấy tờ xuất nhập cảnh. Việc “đi được” không đồng nghĩa với việc chuyến đi an toàn.',url:'',active:true},
-{id:'r2',title:'Quyền của người lao động đi làm việc ở nước ngoài',level:'1',type:'Bài học',desc:'Tìm hiểu quyền được cung cấp thông tin, hưởng quyền lợi theo hợp đồng và yêu cầu bảo vệ.',body:'Người lao động cần được cung cấp thông tin, tư vấn và hỗ trợ; được hưởng tiền lương, quyền lợi, chăm sóc sức khỏe và bảo hiểm theo hợp đồng, quy định pháp luật; được bảo vệ quyền và lợi ích hợp pháp; có quyền khiếu nại, tố cáo hoặc khởi kiện theo quy định.',url:'',active:true},
-{id:'r3',title:'Sáu bước chuẩn bị trước khi đi làm việc ở nước ngoài',level:'1',type:'Bài học',desc:'Từ tìm hiểu thị trường đến kiểm tra hợp đồng và hoàn thiện thủ tục.',body:'Các bước tham khảo: tìm hiểu thị trường, công việc và chương trình; kiểm tra doanh nghiệp có giấy phép; đăng ký và kiểm tra điều kiện; đọc kỹ và ký hợp đồng; hoàn thành khám sức khỏe, đào tạo và giấy tờ; xuất cảnh đúng quy định. Hãy kiểm tra thông tin qua cơ quan có thẩm quyền trước khi quyết định.',url:'',active:true},
-{id:'r4',title:'Dấu hiệu tuyển dụng không an toàn',level:'1',type:'Bài học',desc:'Nhận diện lời mời “việc nhẹ lương cao”, phí mập mờ và yêu cầu giữ giấy tờ.',body:'Cảnh giác khi quảng cáo lương cao bất thường, không nêu rõ công việc hoặc địa điểm; không có hợp đồng rõ ràng; thu phí không minh bạch; yêu cầu giao giấy tờ gốc; hoặc thay đổi công việc, tiền lương so với thỏa thuận.',url:'',active:true},
-{id:'r5',title:'Tình huống: Lời mời sang nước ngoài làm việc',level:'2',type:'Tình huống',desc:'Phân tích trường hợp người trẻ được mời đi làm với thu nhập cao nhưng phải đặt cọc và nộp giấy tờ.',body:'Một sinh viên được mời làm cộng tác viên kiểm duyệt đơn hàng ở nước ngoài với mức lương cao. Người tuyển dụng yêu cầu chuyển tiền đặt cọc và gửi giấy tờ cá nhân nhưng không cung cấp hợp đồng hay thông tin pháp lý rõ ràng. Cách xử lý phù hợp: không chuyển tiền, không giao giấy tờ; dừng giao dịch; xác minh thông tin qua cơ quan có thẩm quyền; trao đổi với gia đình và trình báo khi có dấu hiệu lừa đảo.',url:'',active:true},
-{id:'r6',title:'Tình huống: Bị dụ dỗ sang nước ngoài rồi cưỡng ép lao động',level:'3',type:'Tình huống',desc:'Thảo luận cách tìm kiếm trợ giúp khi bị đưa đến nơi làm việc trái với thỏa thuận.',body:'Một người được hứa hẹn công việc văn phòng lương cao, nhưng sau khi di chuyển lại bị đưa đến nơi khác, bị giữ giấy tờ và ép tham gia hoạt động lừa đảo trực tuyến. Đây là tình huống nguy hiểm. Ưu tiên tìm cách liên hệ cơ quan chức năng, cơ quan đại diện Việt Nam và người đáng tin cậy; không tự đặt mình vào nguy hiểm để thu thập chứng cứ.',url:'',active:true},
-{id:'r7',title:'Bài tương tác: Nhận diện dấu hiệu rủi ro',level:'2',type:'Tương tác',desc:'Thêm đường dẫn Genially của bạn tại trang quản trị để hiển thị bài tương tác.',body:'',url:'',active:true}
-];
 const SUPABASE_URL = 'https://pdekkcdtzcqbxqqrojto.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_XJgrDp-RBoau0TzkLqHtbg_-mib4...'; // Giữ nguyên khóa sb_publishable của bạn
+const SUPABASE_ANON_KEY = 'sb_publishable_XJgRdP-RBoaU0TzkLqHtbg_-mib4Sjf';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let cachedResources = [];
 
 async function getData() {
-    let { data, error } = await _supabase.from('resources').select('*').eq('active', true);
+    let { data, error } = await _supabase.from('resources').select('*').eq('active', true).order('created_at', { ascending: false });
     if (error) {
         console.error('Lỗi tải dữ liệu từ mây:', error);
         return [];
@@ -64,21 +94,21 @@ async function getData() {
 }
 
 async function render(){
-    let q=document.getElementById('search').value.toLowerCase(),
-        l=document.getElementById('level').value,
-        t=document.getElementById('type').value;
+    let q = document.getElementById('search').value.toLowerCase(),
+        l = document.getElementById('level').value,
+        t = document.getElementById('type').value;
     let allData = await getData();
-    let arr=allData.filter(x=>x.active!==false && (l==='' || x.level==l) && (t==='' || x.type===t) && (`${x.title} ${x.desc}`.toLowerCase().includes(q)));
-    let root=document.getElementById('cards');
-    root.innerHTML='';
+    let arr = allData.filter(x => x.active !== false && (l === '' || x.level == l) && (t === '' || x.type === t) && (`${x.title} ${x.desc}`.toLowerCase().includes(q)));
+    let root = document.getElementById('cards');
+    root.innerHTML = '';
     if(!arr.length){
-        root.innerHTML='<div class="empty">Chưa có học liệu phù hợp.</div>';
+        root.innerHTML = '<div class="empty">Chưa có học liệu phù hợp.</div>';
         return;
     }
-    arr.forEach(x=>{
-        let d=document.createElement('div');
-        d.className='card';
-        d.innerHTML=`<div class="pill">Cấp độ ${x.level} &middot; ${x.type}</div><h3>${esc(x.title)}</h3><p>${esc(x.desc||'')}</p><button class="btn" onclick="openResource('${x.id}')">Mở học liệu</button>`;
+    arr.forEach(x => {
+        let d = document.createElement('div');
+        d.className = 'card';
+        d.innerHTML = `<div class="pill">Cấp độ ${x.level} &middot; ${x.type}</div><h3>${esc(x.title)}</h3><p>${esc(x.desc||'')}</p><button class="btn" onclick="openResource('${x.id}')">Mở học liệu</button>`;
         root.appendChild(d);
     });
 }
@@ -108,7 +138,18 @@ function openResource(id){
         b.appendChild(p);
     }
     document.getElementById('modal').classList.add('show');
-}.find(a=>a.id===id);if(!x)return;document.getElementById('modalTitle').textContent=x.title;let b=document.getElementById('modalBody');b.innerHTML='';if(x.url){let u=x.url.trim();if(u.includes('<iframe')){b.innerHTML=u}else{let f=document.createElement('iframe');f.className='embed';f.src=u;f.allow='fullscreen; autoplay; clipboard-write';f.allowFullscreen=true;b.appendChild(f)}}else{let p=document.createElement('p');p.style.whiteSpace='pre-wrap';p.textContent=x.body||'Nội dung đang được cập nhật.';b.appendChild(p)}document.getElementById('modal').classList.add('show')}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
-['search','level','type'].forEach(id=>document.getElementById(id).addEventListener('input',render));render();
-</script></body></html>
+}
+
+function closeModal(){
+    document.getElementById('modal').classList.remove('show');
+}
+
+function esc(s) {
+    return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+['search','level','type'].forEach(id => document.getElementById(id).addEventListener('input', render));
+render();
+</script>
+</body>
+</html>
